@@ -30,9 +30,9 @@ ANATOMY
                 -> WHILE nextKeyValue()
                     -> KafkaInputContext.getNext() -> (offset,message):newOffset
                     -> KafkaInputRecordReader advance currentOffset+=newOffset and numProcessedMessages++
-                    -> HadoopJobMapper(offset,message) -> (date, message)
-                        -> KafkaOutputFormat.RecordWriter.write(date, message)
-                            -> recordWriters[date].write( date,message )
+                    -> HadoopJobMapper(offset,message) -> (offset, message)
+                        -> KafkaOutputFormat.RecordWriter.write(offset, message)
+                            -> recordWriters[date].write( offset,message )
                                 -> LineRecordWriter.write( message ) gz compressed or not
                 -> END WHILE
                 -> close KafkaInputContext
